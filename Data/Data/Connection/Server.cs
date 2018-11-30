@@ -9,11 +9,14 @@ using System.Threading.Tasks;
 
 namespace Data.Connection
 {
-    class Server
+    public class Server
     {
         public Boolean Ativo = false;
-        public Socket Socket = null;
-        public Byte ServerId = 0;
+        public Socket socket = null;
+        public Byte serverId = 0;
+
+        public Client[] clientes = new Client[10];
+        //public List<Client> clientes = new List<Client>();
 
         public static string _sProtocolReceiver = string.Empty;
         public static string _sProtocolResponse = string.Empty;
@@ -30,11 +33,11 @@ namespace Data.Connection
                 {
                     IPEndPoint ipEnd = new IPEndPoint(ipAdr, port);
 
-                    ServerId = serverId;
+                    serverId = serverId;
 
-                    Socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                    Socket.Bind(ipEnd);
-                    Socket.Listen(0);
+                    socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                    socket.Bind(ipEnd);
+                    socket.Listen(0);
                     Console.WriteLine("DataServer Iniciado [{0}:{1}]", ip, port);
                     Console.ForegroundColor = ConsoleColor.Cyan;
                     Console.WriteLine("Aguardando conexões");
@@ -42,7 +45,7 @@ namespace Data.Connection
 
                     Ativo = true;
 
-                    Socket.BeginAccept(WaitConnection, null);
+                    socket.BeginAccept(WaitConnection, null);
 
                 }
             }
@@ -58,8 +61,23 @@ namespace Data.Connection
             {
                 if (Ativo)
                 {
-                    Socket newClient = Socket.EndAccept(ar);
+                    //socket do cliente
+                    Socket newClientSocket = socket.EndAccept(ar);
+
+                    int newClientId = GetFreeClientId();
+
+                    if (newClientId > 0)
+                    {
+                        clientes[newClientId] = new Client(newClientSocket, this.serverId, newClientId);
+                    }
+                    else
+                    {
+                        newClientSocket.Close();
+                        newClientSocket = null;
+                    }
                 }
+
+               
                 
             }
             catch (Exception ex)
@@ -71,9 +89,41 @@ namespace Data.Connection
             {
                 if (Ativo)
                 {
-                    Socket.BeginAccept(WaitConnection, null);
+                    socket.BeginAccept(WaitConnection, null);
                 }
             }
         }
+
+        private int GetFreeClientId()
+        {
+
+
+
+            try
+            {
+                //alterar para trabalhar com lista
+
+                if (clientes.Length == 0)
+                {
+                    return 0;
+                }
+
+                for (int i = 1; i < clientes.Length; i++)
+                {
+                    return i;
+                }
+
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return 0;
+
+        }
+
     }
 }

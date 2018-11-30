@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Config\Settings.cs" />
     <Compile Include="Connection\Client.cs" />
     <Compile Include="Connection\Server.cs" />
     <Compile Include="Program.cs" />
