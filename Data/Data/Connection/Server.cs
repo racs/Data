@@ -15,8 +15,8 @@ namespace Data.Connection
         public Socket socket = null;
         public Byte serverId = 0;
 
-        public Client[] clientes = new Client[10];
-        //public List<Client> clientes = new List<Client>();
+        //public Client[] clientes = new Client[10];
+        public List<Client> clientes = new List<Client>();
 
         public static string _sProtocolReceiver = string.Empty;
         public static string _sProtocolResponse = string.Empty;
@@ -33,7 +33,7 @@ namespace Data.Connection
                 {
                     IPEndPoint ipEnd = new IPEndPoint(ipAdr, port);
 
-                    serverId = serverId;
+                    this.serverId = serverId;
 
                     socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                     socket.Bind(ipEnd);
@@ -68,7 +68,7 @@ namespace Data.Connection
 
                     if (newClientId > 0)
                     {
-                        clientes[newClientId] = new Client(newClientSocket, this.serverId, newClientId);
+                        clientes.Add(new Client(newClientSocket, this.serverId, newClientId));
                     }
                     else
                     {
@@ -97,20 +97,22 @@ namespace Data.Connection
         private int GetFreeClientId()
         {
 
-
-
             try
             {
                 //alterar para trabalhar com lista
 
-                if (clientes.Length == 0)
+                if (clientes.Count == 0)
                 {
-                    return 0;
+                    return 1;
                 }
 
-                for (int i = 1; i < clientes.Length; i++)
+                for (int i = 1; i <= clientes.Count+1; i++)
                 {
-                    return i;
+                    if (i > clientes.Count)
+                    {
+                        return i;
+                    }
+                    
                 }
 
 
