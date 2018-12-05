@@ -48,11 +48,15 @@
     <Compile Include="Config\Settings.cs" />
     <Compile Include="Connection\Client.cs" />
     <Compile Include="Connection\Server.cs" />
+    <Compile Include="Controllers\Action.cs" />
+    <Compile Include="Controllers\ActionController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

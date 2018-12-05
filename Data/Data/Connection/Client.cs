@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RpgProtocol.Protocol;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
@@ -11,10 +12,15 @@ namespace Data.Connection
     {
         public bool ativo = false;
         public Socket socket = null;
+        public const int BufferSize = 1024;
         public int clientId = 0;
         public Byte serverId = 0;
+        public static string _sProtocolReceiver = string.Empty;
+        public static string _sProtocolResponse = string.Empty;
 
-        public Byte[] buffer = null;
+        public Byte[] buffer = new Byte[BufferSize];
+
+        public StringBuilder sb = new StringBuilder();
 
         public Client(Socket socket, Byte serverId, int clientId)
         {
@@ -29,7 +35,7 @@ namespace Data.Connection
 
                 Console.WriteLine($"O Cliente {this.clientId} se conectou ao canal!");
 
-                buffer = new Byte[4000];
+                //buffer = new Byte[4000];
                 this.socket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, WaitData, null);
 
             }
@@ -40,6 +46,7 @@ namespace Data.Connection
             }
         }
 
+        //recebe os dados
         private void WaitData(IAsyncResult ar)
         {
             try
@@ -52,13 +59,35 @@ namespace Data.Connection
                     if (size > 0)
                     {
                         Array.Resize(ref this.buffer, size);
+                        sb.Append(Encoding.ASCII.GetString(buffer, 0, size));
+                        _sProtocolReceiver = sb.ToString();
+                        sb.Clear();
+                        ProtocolResolver pResolver = new ProtocolResolver(_sProtocolReceiver);
+                        ActionController actionController = new ActionController(pResolver);
+                        actionController.ExecAction();
 
-                        Console.WriteLine($"{string.Join(", ", this.buffer)}");
+                        if (_sProtocolReceiver != null)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.WriteLine("Receiver: {0}", _sProtocolReceiver);
+                            Console.ResetColor();
+                            //_sProtocolResponse = "teste";
+                            Send(socket, Server._sProtocolResponse);
+                        }
+                        else
+                        {
+                            socket.BeginReceive(buffer, 0, BufferSize,
+                                0, new AsyncCallback(WaitData), socket);
+                        }
+
+                        Console.WriteLine($"{_sProtocolReceiver}");                                          
+
                     }
                     else
                     {
                         Close();
                     }
+                    
                 }
 
             }
@@ -77,6 +106,28 @@ namespace Data.Connection
                 }
 
             }
+        }
+
+        private static void Send(Socket handler, string data)
+        {
+            byte[] byteData = Encoding.ASCII.GetBytes(data);
+            handler.BeginSend(byteData, 0, byteData.Length,
+                0, new AsyncCallback(SendCallBack), handler);
+        }
+
+        private static void SendCallBack(IAsyncResult ar)
+        {
+            Socket handler = (Socket)ar.AsyncState;
+
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("Server Send: {0}", Server._sProtocolResponse);
+            Console.ResetColor();
+
+            
+
+            
+            
+
         }
 
         public void Close()

@@ -38,6 +38,7 @@ namespace Data.Connection
                     socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                     socket.Bind(ipEnd);
                     socket.Listen(0);
+                    Console.WriteLine("DataServer ID: {0}", serverId);
                     Console.WriteLine("DataServer Iniciado [{0}:{1}]", ip, port);
                     Console.ForegroundColor = ConsoleColor.Cyan;
                     Console.WriteLine("Aguardando conexões");
@@ -55,6 +56,7 @@ namespace Data.Connection
             }
         }
 
+        //quando recebe a conexão
         public void WaitConnection(IAsyncResult ar)
         {
             try
@@ -68,16 +70,14 @@ namespace Data.Connection
 
                     if (newClientId > 0)
                     {
-                        clientes.Add(new Client(newClientSocket, this.serverId, newClientId));
+                        clientes.Add(new Client(newClientSocket, this.serverId, newClientId));                        
                     }
                     else
                     {
                         newClientSocket.Close();
                         newClientSocket = null;
                     }
-                }
-
-               
+                }               
                 
             }
             catch (Exception ex)
@@ -92,14 +92,16 @@ namespace Data.Connection
                     socket.BeginAccept(WaitConnection, null);
                 }
             }
-        }
+        }      
+
+        
 
         private int GetFreeClientId()
         {
 
             try
             {
-                //alterar para trabalhar com lista
+                
 
                 if (clientes.Count == 0)
                 {

@@ -11,7 +11,10 @@ namespace Data.Config
     {
         public static string[] ips =
         {
-            "192.168.0.23"
+            //"192.168.0.23"
+            "10.3.52.25"
+            
+
         };
 
         public static Server[] servers = null;
