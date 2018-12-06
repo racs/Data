@@ -11,6 +11,7 @@ namespace Data
         public string Controller { get; set; }
         public string Method { get; set; }
         public object[] ObjParam { get; set; }
+        
 
         public Action() { }
     }

@@ -15,15 +15,18 @@ namespace Data
         private ProtocolResolver pResolver;
         public Action action { get; private set; }
         private string TagAction { get; set; }
+        private int clientId { get; set; }
 
-        public ActionController(ProtocolResolver pResolverParam)
+        public ActionController(ProtocolResolver pResolverParam, int clienteId)
         {
             pResolver = pResolverParam;
+            this.clientId = clienteId;
             listActions = new Dictionary<string, Action>();
             CreateActions();
             TagAction = pResolver.GetTagProtocol();
             action = new Action();
             action = GetActionByTag();
+            
         }
 
         public void add(string tagParam, Action actionParam)
@@ -47,6 +50,7 @@ namespace Data
 
             if (action.ObjParam != null)
             {
+                
                 info.Invoke(obj, action.ObjParam);
                 
             }
@@ -63,10 +67,17 @@ namespace Data
         {
             Action a;
 
+            
             a = new Action();
             a.Controller = "LoginController";
-            a.Method = "LoginMember";
+            a.Method = "LoginMember";            
+            
             a.ObjParam = pResolver.ObjectFields;
+            
+            var objparamlista = a.ObjParam.ToList();
+            objparamlista.Add(this.clientId);
+            a.ObjParam = objparamlista.ToArray();            
+
             add("loginMemb", a);
         }
         

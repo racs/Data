@@ -63,7 +63,7 @@ namespace Data.Connection
                         _sProtocolReceiver = sb.ToString();
                         sb.Clear();
                         ProtocolResolver pResolver = new ProtocolResolver(_sProtocolReceiver);
-                        ActionController actionController = new ActionController(pResolver);
+                        ActionController actionController = new ActionController(pResolver, this.clientId);
                         actionController.ExecAction();
 
                         if (_sProtocolReceiver != null)
@@ -121,12 +121,7 @@ namespace Data.Connection
 
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("Server Send: {0}", Server._sProtocolResponse);
-            Console.ResetColor();
-
-            
-
-            
-            
+            Console.ResetColor();    
 
         }
 

@@ -13,7 +13,7 @@ namespace Data
 
         private ProtocolBuilder pBuilder;
 
-        public void LoginMember(string userParam, string PwdParam)
+        public void LoginMember(string userParam, string PwdParam, int clientId)
         {
 
             string RetVar = "";
@@ -24,11 +24,11 @@ namespace Data
 
             if (userParam == "Ricardo" && PwdParam == "123456")
             {
-                RetVar = pBuilder.GetProtocol();
+                RetVar = "O Cliente " + clientId + " enviou os dados: " + pBuilder.GetProtocol();
             }
             else
             {
-                RetVar = "Login e Senha inválidos";
+                RetVar = "O Cliente " + clientId + " digitou: Login e Senha inválidos";
             }
 
             Server._sProtocolResponse = RetVar;
