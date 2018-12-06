@@ -70,7 +70,11 @@ namespace Data.Connection
 
                     if (newClientId > 0)
                     {
-                        clientes.Add(new Client(newClientSocket, this.serverId, newClientId));                        
+                        EndPoint ipCliente = newClientSocket.RemoteEndPoint;
+                        clientes.Add(new Client(newClientSocket, this.serverId, newClientId, ipCliente));
+                        
+                        // evento disparado toda vez que um cliente se conecta
+                        this.NovaConexao();
                     }
                     else
                     {
@@ -128,6 +132,18 @@ namespace Data.Connection
             return 0;
 
         }
+
+        public void Server_ListaClientes()
+        {
+            Console.WriteLine("Lista de Clientes conectados ao servidor");
+            foreach (Client c in clientes)
+            {
+                Console.WriteLine($"Cliente numero  ID{c.clientId} numero de endereco ip {c.ipCliente.ToString()} ");
+            }
+        }
+
+        public delegate void EventoServidorClienteConecta();
+        public event EventoServidorClienteConecta NovaConexao;
 
     }
 }

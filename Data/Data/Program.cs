@@ -23,6 +23,9 @@ namespace Data
                 Settings.servers[i] = new Server(i, Settings.ips[i], 5060);
             }
 
+            // evento disparado toda vez que um cliente se conecta
+            Settings.servers[0].NovaConexao += new Server.EventoServidorClienteConecta(Settings.servers[0].Server_ListaClientes);
+
             Process.GetCurrentProcess().WaitForExit();
         }
     }

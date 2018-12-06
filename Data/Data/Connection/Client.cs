@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,23 +18,23 @@ namespace Data.Connection
         public Byte serverId = 0;
         public static string _sProtocolReceiver = string.Empty;
         public static string _sProtocolResponse = string.Empty;
+        public EndPoint ipCliente;
 
         public Byte[] buffer = new Byte[BufferSize];
 
         public StringBuilder sb = new StringBuilder();
 
-        public Client(Socket socket, Byte serverId, int clientId)
+        public Client(Socket socket, Byte serverId, int clientId, EndPoint ipCliente)
         {
             try
             {
                 ativo = true;
                 this.socket = socket;
-
                 this.clientId = clientId;
-
                 this.serverId = serverId;
+                this.ipCliente = ipCliente;
 
-                Console.WriteLine($"O Cliente {this.clientId} se conectou ao canal!");
+                Console.WriteLine($"O Cliente Id{this.clientId} numero de ip {ipCliente.ToString()} se conectou ao Servidor!");
 
                 //buffer = new Byte[4000];
                 this.socket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, WaitData, null);
@@ -86,6 +87,8 @@ namespace Data.Connection
                     else
                     {
                         Close();
+
+                        //atualizar a lista do servidor retirando esse cliente da lista
                     }
                     
                 }

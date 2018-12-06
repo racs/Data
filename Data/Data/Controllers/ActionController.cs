@@ -58,8 +58,7 @@ namespace Data
             {
                 info.Invoke(obj, null);
                 
-            }
-                
+            }                
                 
 
         }
