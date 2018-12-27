@@ -18,7 +18,7 @@ namespace Data.Connection
         public Byte serverId = 0;
         public static string _sProtocolReceiver = string.Empty;
         public static string _sProtocolResponse = string.Empty;
-        public EndPoint ipCliente;
+        public EndPoint ipCliente;        
 
         public Byte[] buffer = new Byte[BufferSize];
 
@@ -86,9 +86,14 @@ namespace Data.Connection
                     }
                     else
                     {
-                        Close();
+                        //atualizar a lista do servidor retirando esse cliente da lista                        
+                        //evento disparado sempre que um cliente disconecta
 
-                        //atualizar a lista do servidor retirando esse cliente da lista
+                        //this.ClienteDisconecta(this, new EventArgs());
+                        this.ClienteDisconecta(this, new EventArgs());
+                        Close();
+                        
+                        
                     }
                     
                 }
@@ -147,6 +152,19 @@ namespace Data.Connection
                 Console.WriteLine($"{ex.Message} \n {ex.StackTrace}");
             }
         }
+
+        
+
+        public void Cliente_ClienteDisconecta()
+        {   
+
+            Console.WriteLine($"O cliente numero  ID{this.clientId} foi desconectado do servidor.");
+        }
+
+
+        //public delegate void EventoClienteClienteDisconecta(object sender, EventArgs e);
+        public delegate void EventoClienteClienteDisconecta(object sender, EventArgs e);
+        public event EventoClienteClienteDisconecta ClienteDisconecta;
 
     }
 }

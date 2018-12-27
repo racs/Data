@@ -17,6 +17,7 @@ namespace Data
             Console.Title = "Data";
 
             Settings.servers = new Server[Settings.ips.Length];
+            
 
             for (Byte i = 0; i < Settings.servers.Length; i++)
             {
@@ -25,6 +26,7 @@ namespace Data
 
             // evento disparado toda vez que um cliente se conecta
             Settings.servers[0].NovaConexao += new Server.EventoServidorClienteConecta(Settings.servers[0].Server_ListaClientes);
+            
 
             Process.GetCurrentProcess().WaitForExit();
         }

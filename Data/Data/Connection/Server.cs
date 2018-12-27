@@ -14,8 +14,8 @@ namespace Data.Connection
         public Boolean Ativo = false;
         public Socket socket = null;
         public Byte serverId = 0;
-
-        //public Client[] clientes = new Client[10];
+        public int qtd = 0;
+        
         public List<Client> clientes = new List<Client>();
 
         public static string _sProtocolReceiver = string.Empty;
@@ -25,7 +25,7 @@ namespace Data.Connection
 
 
         public Server(byte serverId, string ip, int port)
-        {
+        {            
             try
             {
                 //IPAddress ipAdr = null;
@@ -69,15 +69,16 @@ namespace Data.Connection
                     int newClientId = GetFreeClientId();
 
                     if (newClientId > 0)
-                    {
+                    {                        
                         EndPoint ipCliente = newClientSocket.RemoteEndPoint;
-                        clientes.Add(new Client(newClientSocket, this.serverId, newClientId, ipCliente));
-                        
+                        Client cliente = new Client(newClientSocket, this.serverId, newClientId, ipCliente);
+                        clientes.Add(cliente);
                         // evento disparado toda vez que um cliente se conecta
                         this.NovaConexao();
-                    }
+                        cliente.ClienteDisconecta += new Client.EventoClienteClienteDisconecta(Server_ClienteDisconecta);
+                    } 
                     else
-                    {
+                    {                        
                         newClientSocket.Close();
                         newClientSocket = null;
                     }
@@ -102,22 +103,25 @@ namespace Data.Connection
 
         private int GetFreeClientId()
         {
-
             try
-            {
-                
+            { 
 
                 if (clientes.Count == 0)
                 {
-                    return 1;
+                    qtd = 1;
+                    return 1;                    
                 }
 
-                for (int i = 1; i <= clientes.Count+1; i++)
+                for (int i = 1; i>qtd+1; i++)
                 {
-                    if (i > clientes.Count)
-                    {
-                        return i;
-                    }
+                    //if (i > clientes.Count)
+                    //{
+                    //    qtd = i;
+                    //    return i;
+                    //}
+                    qtd = i;
+
+                    return i;
                     
                 }
 
@@ -142,8 +146,32 @@ namespace Data.Connection
             }
         }
 
+        //public void TestaEvento(object sender, EventArgs e)
+        //{
+        //    Console.WriteLine("funcionou");
+        //}
+
+        public void Server_ClienteDisconecta(object sender, EventArgs e)
+        {
+
+            foreach (Client c in clientes.ToList())
+            {
+                if (c == sender )
+                {
+                    Console.WriteLine($"O cliente numero  ID{c.clientId} foi desconectado do servidor.");
+                    clientes.Remove(c);
+                }
+
+            }
+
+            
+        }
+
         public delegate void EventoServidorClienteConecta();
         public event EventoServidorClienteConecta NovaConexao;
+
+        
+
 
     }
 }

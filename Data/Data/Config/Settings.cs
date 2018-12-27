@@ -19,6 +19,8 @@ namespace Data.Config
 
         public static Server[] servers = null;
 
+        //public static Client cliente = null;
+
         public static int MaxConnection = 1000;
     }
 }
