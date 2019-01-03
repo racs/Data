@@ -14,8 +14,9 @@ namespace Data.Connection
         public Boolean Ativo = false;
         public Socket socket = null;
         public Byte serverId = 0;
-        public int qtd = 0;
-        
+        public int qtddeClientes = 0;
+        public int qtdMaxdeClientes = 0;
+
         public List<Client> clientes = new List<Client>();
 
         public static string _sProtocolReceiver = string.Empty;
@@ -103,28 +104,30 @@ namespace Data.Connection
 
         private int GetFreeClientId()
         {
+
+            if (clientes.Count >= qtdMaxdeClientes)
+            {
+                qtdMaxdeClientes = clientes.Count;
+            }
+            
             try
             { 
 
-                if (clientes.Count == 0)
+                if (clientes.Count == 0 && qtdMaxdeClientes == 0)
                 {
-                    qtd = 1;
+                    qtddeClientes = 1;
                     return 1;                    
                 }
 
-                for (int i = 1; i>qtd+1; i++)
+                for (int i = 1; i <= qtdMaxdeClientes+1; i++)
                 {
-                    //if (i > clientes.Count)
-                    //{
-                    //    qtd = i;
-                    //    return i;
-                    //}
-                    qtd = i;
 
-                    return i;
+                    qtddeClientes = i;                    
                     
                 }
 
+                qtdMaxdeClientes = qtddeClientes;
+                return qtddeClientes;
 
             }
             catch (Exception)
@@ -132,8 +135,7 @@ namespace Data.Connection
 
                 throw;
             }
-
-            return 0;
+            
 
         }
 
