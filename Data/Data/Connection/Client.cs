@@ -34,6 +34,7 @@ namespace Data.Connection
                 this.serverId = serverId;
                 this.ipCliente = ipCliente;
 
+                Console.ForegroundColor = ConsoleColor.Blue;
                 Console.WriteLine($"O Cliente Id{this.clientId} numero de ip {ipCliente.ToString()} se conectou ao Servidor!");
 
                 //buffer = new Byte[4000];
@@ -42,7 +43,7 @@ namespace Data.Connection
             }
             catch (Exception ex)
             {
-
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine($"{ex.Message} \n {ex.StackTrace}");
             }
         }
@@ -71,8 +72,7 @@ namespace Data.Connection
                         {
                             Console.ForegroundColor = ConsoleColor.Green;
                             Console.WriteLine("Receiver: {0}", _sProtocolReceiver);
-                            Console.ResetColor();
-                            //_sProtocolResponse = "teste";
+                            Console.ResetColor();                            
                             Send(socket, Server._sProtocolResponse);
                         }
                         else
@@ -102,6 +102,7 @@ namespace Data.Connection
             catch (Exception ex)
             {
 
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine($"{ex.Message} \n {ex.StackTrace}");
             }
             finally
@@ -127,7 +128,7 @@ namespace Data.Connection
         {
             Socket handler = (Socket)ar.AsyncState;
 
-            Console.ForegroundColor = ConsoleColor.Red;
+            Console.ForegroundColor = ConsoleColor.Gray;
             Console.WriteLine("Server Send: {0}", Server._sProtocolResponse);
             Console.ResetColor();    
 
@@ -148,7 +149,7 @@ namespace Data.Connection
             }
             catch (Exception ex)
             {
-
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine($"{ex.Message} \n {ex.StackTrace}");
             }
         }
@@ -156,8 +157,8 @@ namespace Data.Connection
         
 
         public void Cliente_ClienteDisconecta()
-        {   
-
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine($"O cliente numero  ID{this.clientId} foi desconectado do servidor.");
         }
 

@@ -53,6 +53,7 @@ namespace Data.Connection
             }
             catch (Exception ex)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine($"{ex.Message} \n {ex.StackTrace}");
             }
         }
@@ -88,7 +89,7 @@ namespace Data.Connection
             }
             catch (Exception ex)
             {
-
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine($"{ex.Message} \n {ex.StackTrace}");
             }
             finally
@@ -141,6 +142,7 @@ namespace Data.Connection
 
         public void Server_ListaClientes()
         {
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.WriteLine("Lista de Clientes conectados ao servidor");
             foreach (Client c in clientes)
             {
@@ -148,11 +150,7 @@ namespace Data.Connection
             }
         }
 
-        //public void TestaEvento(object sender, EventArgs e)
-        //{
-        //    Console.WriteLine("funcionou");
-        //}
-
+        
         public void Server_ClienteDisconecta(object sender, EventArgs e)
         {
 
@@ -160,6 +158,7 @@ namespace Data.Connection
             {
                 if (c == sender )
                 {
+                    Console.ForegroundColor = ConsoleColor.Magenta;
                     Console.WriteLine($"O cliente numero  ID{c.clientId} foi desconectado do servidor.");
                     clientes.Remove(c);
                 }
