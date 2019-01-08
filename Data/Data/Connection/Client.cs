@@ -109,8 +109,17 @@ namespace Data.Connection
             {
                 if (ativo)
                 {
-                    buffer = new Byte[4000];
-                    this.socket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, WaitData, null);
+                    try
+                    {
+                        buffer = new Byte[4000];
+                        this.socket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, WaitData, null);
+                    }
+                    catch (Exception e)
+                    {
+
+                        Console.WriteLine(e.Message);
+                    }
+                    
 
                 }
 
@@ -118,7 +127,7 @@ namespace Data.Connection
         }
 
         private static void Send(Socket handler, string data)
-        {
+        {            
             byte[] byteData = Encoding.ASCII.GetBytes(data);
             handler.BeginSend(byteData, 0, byteData.Length,
                 0, new AsyncCallback(SendCallBack), handler);

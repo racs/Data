@@ -36,7 +36,15 @@ namespace Data
 
         private Action GetActionByTag()
         {
-            return listActions[TagAction];
+            //if (listActions.ContainsKey(TagAction))
+            //{
+                return listActions[TagAction];
+                //openWith.Add("ht", "hypertrm.exe");
+                //Console.WriteLine("Value added for key = \"ht\": {0}",
+                //    openWith["ht"]);
+            //}
+            //return null;
+            
         }
 
         public void ExecAction()
@@ -65,7 +73,6 @@ namespace Data
         private void CreateActions()
         {
             Action a;
-
             
             a = new Action();
             a.Controller = "LoginController";
