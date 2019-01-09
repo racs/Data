@@ -18,7 +18,8 @@ namespace Data.Connection
         public Byte serverId = 0;
         public static string _sProtocolReceiver = string.Empty;
         public static string _sProtocolResponse = string.Empty;
-        public EndPoint ipCliente;        
+        public EndPoint ipCliente;
+        public string erroProt;
 
         public Byte[] buffer = new Byte[BufferSize];
 
@@ -61,12 +62,21 @@ namespace Data.Connection
                     if (size > 0)
                     {
                         Array.Resize(ref this.buffer, size);
-                        sb.Append(Encoding.ASCII.GetString(buffer, 0, size));
+                        sb.Append(Encoding.UTF8.GetString(buffer, 0, size));
                         _sProtocolReceiver = sb.ToString();
                         sb.Clear();
-                        ProtocolResolver pResolver = new ProtocolResolver(_sProtocolReceiver);
-                        ActionController actionController = new ActionController(pResolver, this.clientId);
-                        actionController.ExecAction();
+                        //implementado controle de erros com o valor do _sProtocolReceiver recebido aqui
+                        if (ProtocoloRecebidoOK(_sProtocolReceiver))
+                        {
+                            ProtocolResolver pResolver = new ProtocolResolver(_sProtocolReceiver);
+                            ActionController actionController = new ActionController(pResolver, this.clientId);
+                            actionController.ExecAction();
+                        }
+                        else
+                        {                             
+                            Server._sProtocolResponse = erroProt; 
+                        }
+                        
 
                         if (_sProtocolReceiver != null)
                         {
@@ -88,8 +98,7 @@ namespace Data.Connection
                     {
                         //atualizar a lista do servidor retirando esse cliente da lista                        
                         //evento disparado sempre que um cliente disconecta
-
-                        //this.ClienteDisconecta(this, new EventArgs());
+                                                
                         this.ClienteDisconecta(this, new EventArgs());
                         Close();
                         
@@ -101,7 +110,6 @@ namespace Data.Connection
             }
             catch (Exception ex)
             {
-
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine($"{ex.Message} \n {ex.StackTrace}");
             }
@@ -116,10 +124,8 @@ namespace Data.Connection
                     }
                     catch (Exception e)
                     {
-
                         Console.WriteLine(e.Message);
-                    }
-                    
+                    }                   
 
                 }
 
@@ -128,7 +134,7 @@ namespace Data.Connection
 
         private static void Send(Socket handler, string data)
         {            
-            byte[] byteData = Encoding.ASCII.GetBytes(data);
+            byte[] byteData = Encoding.UTF8.GetBytes(data);
             handler.BeginSend(byteData, 0, byteData.Length,
                 0, new AsyncCallback(SendCallBack), handler);
         }
@@ -169,6 +175,35 @@ namespace Data.Connection
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine($"O cliente numero  ID{this.clientId} foi desconectado do servidor.");
+        }
+
+        public bool ProtocoloRecebidoOK(string protocolo)
+        {
+            if (protocolo == "")
+            {
+                erroProt = "Empty protocol!";
+                return false;
+            }
+
+            if (protocolo.Substring(0, 1) != "[")
+            {
+                erroProt = "Protocol not é ã ô started with '['";
+                return false;
+            }
+
+            if (!protocolo.Contains("|"))
+            {
+                erroProt = "not found '|' in the protocol";
+                return false;
+            }
+
+            if (protocolo.Contains(" "))
+            {
+                erroProt = "space character is not allowd in the protocol !";
+                return false;
+            }
+
+            return true;
         }
 
 

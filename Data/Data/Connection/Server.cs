@@ -100,7 +100,6 @@ namespace Data.Connection
                 }
             }
         }      
-
         
 
         private int GetFreeClientId()
