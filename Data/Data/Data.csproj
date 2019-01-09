@@ -51,6 +51,7 @@
     <Compile Include="Controllers\Action.cs" />
     <Compile Include="Controllers\ActionController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\UnknownTagController.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -36,15 +36,13 @@ namespace Data
 
         private Action GetActionByTag()
         {
-            //if (listActions.ContainsKey(TagAction))
-            //{
+            if (listActions.ContainsKey(TagAction))
+            {
                 return listActions[TagAction];
-                //openWith.Add("ht", "hypertrm.exe");
-                //Console.WriteLine("Value added for key = \"ht\": {0}",
-                //    openWith["ht"]);
-            //}
-            //return null;
-            
+                
+            }
+            return listActions["UnknTag"];
+
         }
 
         public void ExecAction()
@@ -56,14 +54,26 @@ namespace Data
 
             MethodInfo info = obj.GetType().GetMethod(action.Method);
 
+            int size = 1;
+            var obj1 = action.ObjParam;
+
             if (action.ObjParam != null)
             {
-                
+                if (type.FullName == "Data.UnknownTagController")
+                {
+                    
+                    Array.Resize(ref obj1, size);
+                    action.ObjParam = obj1;                    
+                    action.ObjParam[0] = 1;
+                    
+                }
+
                 info.Invoke(obj, action.ObjParam);
                 
             }
             else
             {
+                
                 info.Invoke(obj, null);
                 
             }                
@@ -85,6 +95,20 @@ namespace Data
             a.ObjParam = objparamlista.ToArray();            
 
             add("loginMemb", a);
+
+            Action b;
+
+            b = new Action();
+            b.Controller = "UnknownTagController";
+            b.Method = "UnknownTag";
+            
+            //b.ObjParam = pResolver.ObjectFields;
+
+            //var objparamlista = a.ObjParam.ToList();
+            objparamlista.Add(this.clientId);
+            b.ObjParam = objparamlista.ToArray();
+
+            add("UnknTag", b);
         }
         
     }
