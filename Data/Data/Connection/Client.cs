@@ -187,7 +187,7 @@ namespace Data.Connection
 
             if (protocolo.Substring(0, 1) != "[")
             {
-                erroProt = "Protocol not é ã ô started with '['";
+                erroProt = "Protocol not started with '['";
                 return false;
             }
 
