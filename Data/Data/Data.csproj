@@ -32,11 +32,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="RpgProtocol">
-      <HintPath>..\..\..\Server\DataServer\criacao do DataServer\DataServer\DataServer\bin\Debug\RpgProtocol.dll</HintPath>
+      <HintPath>..\..\..\..\..\unity configuracoes\criacao de protocolo\RpgProtocol\RpgProtocol\bin\Debug\RpgProtocol.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -51,13 +60,58 @@
     <Compile Include="Controllers\Action.cs" />
     <Compile Include="Controllers\ActionController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\UnknownTagController.cs" />
+    <Compile Include="Database\BdTesteUnity.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BdTesteUnity.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\BdTesteUnity.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BdTesteUnity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\BdTesteUnity.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BdTesteUnity.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Player.cs">
+      <DependentUpon>BdTesteUnity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\User.cs">
+      <DependentUpon>BdTesteUnity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <EntityDeploy Include="Database\BdTesteUnity.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>BdTesteUnity.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Database\BdTesteUnity.edmx.diagram">
+      <DependentUpon>BdTesteUnity.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <Content Include="Database\BdTesteUnity.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BdTesteUnity.edmx</DependentUpon>
+      <LastGenOutput>BdTesteUnity.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Database\BdTesteUnity.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BdTesteUnity.edmx</DependentUpon>
+      <LastGenOutput>BdTesteUnity.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

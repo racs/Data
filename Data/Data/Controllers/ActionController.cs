@@ -90,9 +90,9 @@ namespace Data
             
             a.ObjParam = pResolver.ObjectFields;
             
-            var objparamlista = a.ObjParam.ToList();
-            objparamlista.Add(this.clientId);
-            a.ObjParam = objparamlista.ToArray();            
+            var objparamlistaLoginController = a.ObjParam.ToList();
+            objparamlistaLoginController.Add(this.clientId);
+            a.ObjParam = objparamlistaLoginController.ToArray();            
 
             add("loginMemb", a);
 
@@ -102,13 +102,28 @@ namespace Data
             b.Controller = "UnknownTagController";
             b.Method = "UnknownTag";
             
-            //b.ObjParam = pResolver.ObjectFields;
+            b.ObjParam = pResolver.ObjectFields;
 
-            //var objparamlista = a.ObjParam.ToList();
-            objparamlista.Add(this.clientId);
-            b.ObjParam = objparamlista.ToArray();
+            var objparamlistaUnknownTagController = b.ObjParam.ToList();
+            objparamlistaUnknownTagController.Add(this.clientId);
+            b.ObjParam = objparamlistaUnknownTagController.ToArray();           
 
             add("UnknTag", b);
+
+            Action c;
+
+            c = new Action();
+            c.Controller = "RegisterController";
+            c.Method = "RegisterLogin";
+
+            c.ObjParam = pResolver.ObjectFields;
+
+            var objparamlistaRegisterController = c.ObjParam.ToList();
+            objparamlistaRegisterController.Add(this.clientId);
+            c.ObjParam = objparamlistaRegisterController.ToArray();            
+
+            add("RegisterLogin", c);
+
         }
         
     }
