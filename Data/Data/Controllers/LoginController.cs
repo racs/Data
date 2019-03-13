@@ -14,30 +14,58 @@ namespace Data
 
         private ProtocolBuilder pBuilder;
 
-        public void LoginMember(string userParam, string PwdParam, int clientId)
+        public void LoginMember(string userParam, string PwdParam, string firstlogin, int clientId)
         {
 
             string RetVar = "";
 
             pBuilder = new ProtocolBuilder("LoginMemb");
             pBuilder.Add(userParam);
-            pBuilder.Add(PwdParam, true);
+            pBuilder.Add(PwdParam);
+            pBuilder.Add(firstlogin, true);
 
             using (TesteunityEntities contexto = new TesteunityEntities())
             {
                                 
                 //Verifica se já existe o username no BD
                 var query = (from u in contexto.Users
-                             where (u.nome==userParam) && (u.senha==PwdParam)
+                             where (u.nome==userParam) && (u.senha == PwdParam)
                              select u).SingleOrDefault();
+                
+
+                //if (queryUsername != null)
+                //{
+                //    var queryPassword = (from p in queryUsername.nome
+                //                         where (p.senha == PwdParam)
+                //                         select p).SingleOrDefault();
+                //}
+                               
+               
 
                 if (query != null)
                 {
-                    RetVar = "Login succesful!";
+                    if (query.senha != PwdParam)
+                    {
+                        RetVar = "Login failed!";
+                    }
+                    else
+                    {
+                        if (query.primeirologin == true)
+                        {
+                            RetVar = "Login successful! Welcome to the Magic Land, I see it' s your first time here.";
+                            query.primeirologin = false;
+                            contexto.SaveChanges();
+                        }
+                        else
+                        {
+                            RetVar = "Login successful!";
+                        }
+                        
+                    }
                 }
                 else
                 {
-                    RetVar = "Login Failed!";
+                    RetVar = "Login not found!";
                 }
 
             }
