@@ -11,12 +11,26 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ID_USER_PLAYERS" Type="int" Nullable="false" />
-          <Property Name="Nome" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Nome" Type="nvarchar(max)" Nullable="false" />
           <Property Name="PosX" Type="float" />
           <Property Name="PosY" Type="float" />
           <Property Name="PosZ" Type="float" />
           <Property Name="Vida" Type="int" />
           <Property Name="Mana" Type="int" />
+          <Property Name="Sexo" Type="nchar" MaxLength="10" />
+          <Property Name="valorvermelhoblusamasc" Type="float" />
+          <Property Name="valorverdeblusamasc" Type="float" />
+          <Property Name="valorazulblusamasc" Type="float" />
+          <Property Name="valorvermelhocalcamasc" Type="float" />
+          <Property Name="valorverdecalcamasc" Type="float" />
+          <Property Name="valorazulcalcamasc" Type="float" />
+          <Property Name="valorvermelhopelemasc" Type="int" />
+          <Property Name="valorverdepelemasc" Type="int" />
+          <Property Name="valorazulpelemasc" Type="int" />
+          <Property Name="valorvermelhocabelomasc" Type="int" />
+          <Property Name="valorverdecabelomasc" Type="int" />
+          <Property Name="valorazulcabelomasc" Type="int" />
+          <Property Name="Nivel" Type="int" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -68,7 +82,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="Nome" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Nome" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="PosX" Type="Double" />
           <Property Name="PosY" Type="Double" />
           <Property Name="PosZ" Type="Double" />
@@ -76,6 +90,20 @@
           <Property Name="Mana" Type="Int32" />
           <Property Name="ID_USER_PLAYERS" Type="Int32" Nullable="false" />
           <NavigationProperty Name="User" Relationship="TesteunityModel.FK_User_Players" FromRole="Player" ToRole="User" />
+          <Property Name="Sexo" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="valorvermelhoblusamasc" Type="Double" />
+          <Property Name="valorverdeblusamasc" Type="Double" />
+          <Property Name="valorazulblusamasc" Type="Double" />
+          <Property Name="valorvermelhocalcamasc" Type="Double" />
+          <Property Name="valorverdecalcamasc" Type="Double" />
+          <Property Name="valorazulcalcamasc" Type="Double" />
+          <Property Name="valorvermelhopelemasc" Type="Int32" />
+          <Property Name="valorverdepelemasc" Type="Int32" />
+          <Property Name="valorazulpelemasc" Type="Int32" />
+          <Property Name="valorvermelhocabelomasc" Type="Int32" />
+          <Property Name="valorverdecabelomasc" Type="Int32" />
+          <Property Name="valorazulcabelomasc" Type="Int32" />
+          <Property Name="Nivel" Type="Int32" />
         </EntityType>
         <EntityContainer Name="TesteunityEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Users" EntityType="Self.User" />
@@ -117,6 +145,20 @@
           <EntitySetMapping Name="Players">
             <EntityTypeMapping TypeName="TesteunityModel.Player">
               <MappingFragment StoreEntitySet="Players">
+                <ScalarProperty Name="Nivel" ColumnName="Nivel" />
+                <ScalarProperty Name="valorazulcabelomasc" ColumnName="valorazulcabelomasc" />
+                <ScalarProperty Name="valorverdecabelomasc" ColumnName="valorverdecabelomasc" />
+                <ScalarProperty Name="valorvermelhocabelomasc" ColumnName="valorvermelhocabelomasc" />
+                <ScalarProperty Name="valorazulpelemasc" ColumnName="valorazulpelemasc" />
+                <ScalarProperty Name="valorverdepelemasc" ColumnName="valorverdepelemasc" />
+                <ScalarProperty Name="valorvermelhopelemasc" ColumnName="valorvermelhopelemasc" />
+                <ScalarProperty Name="valorazulcalcamasc" ColumnName="valorazulcalcamasc" />
+                <ScalarProperty Name="valorverdecalcamasc" ColumnName="valorverdecalcamasc" />
+                <ScalarProperty Name="valorvermelhocalcamasc" ColumnName="valorvermelhocalcamasc" />
+                <ScalarProperty Name="valorazulblusamasc" ColumnName="valorazulblusamasc" />
+                <ScalarProperty Name="valorverdeblusamasc" ColumnName="valorverdeblusamasc" />
+                <ScalarProperty Name="valorvermelhoblusamasc" ColumnName="valorvermelhoblusamasc" />
+                <ScalarProperty Name="Sexo" ColumnName="Sexo" />
                 <ScalarProperty Name="ID_USER_PLAYERS" ColumnName="ID_USER_PLAYERS" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Nome" ColumnName="Nome" />

@@ -22,6 +22,20 @@ namespace Data.Database
         public Nullable<int> Vida { get; set; }
         public Nullable<int> Mana { get; set; }
         public int ID_USER_PLAYERS { get; set; }
+        public string Sexo { get; set; }
+        public Nullable<double> valorvermelhoblusamasc { get; set; }
+        public Nullable<double> valorverdeblusamasc { get; set; }
+        public Nullable<double> valorazulblusamasc { get; set; }
+        public Nullable<double> valorvermelhocalcamasc { get; set; }
+        public Nullable<double> valorverdecalcamasc { get; set; }
+        public Nullable<double> valorazulcalcamasc { get; set; }
+        public Nullable<int> valorvermelhopelemasc { get; set; }
+        public Nullable<int> valorverdepelemasc { get; set; }
+        public Nullable<int> valorazulpelemasc { get; set; }
+        public Nullable<int> valorvermelhocabelomasc { get; set; }
+        public Nullable<int> valorverdecabelomasc { get; set; }
+        public Nullable<int> valorazulcabelomasc { get; set; }
+        public Nullable<int> Nivel { get; set; }
     
         public virtual User User { get; set; }
     }

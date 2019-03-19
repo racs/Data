@@ -54,34 +54,27 @@ namespace Data
                         {
                             contexto.Users.Add(user);
                             contexto.SaveChanges();
-                            RetVar = "Cadastro realizado com sucesso";
+                            RetVar = "[Regok]"; //Cadastro realizado com sucesso!
                         }
                         catch (Exception e)
                         {
-                            RetVar = "Erro: " + e.Message;
+                            RetVar = "[Regnotsaved]"; //User not saved, try again later!
                         }
                     }
                     else
                     {
-                        RetVar = "E-mail já utilizado, tente cadastrar outro";
+                        RetVar = "[Regemailexistent]"; //E-mail já utilizado, tente cadastrar outro
                     }
                     
                 }
                 else
                 {
-                    RetVar = "Username já existe, tente cadastrar outro";
+                    RetVar = "[Regnameexistent]"; //Username já existe, tente cadastrar outro!
                 }
 
             }
 
-            //if (userParam == "Ricardo" && PwdParam == "123456")
-            //{
-            //    RetVar = "O Cliente " + clientId + " enviou os dados: " + pBuilder.GetProtocol();
-            //}
-            //else
-            //{
-            //    RetVar = "O Cliente " + clientId + " digitou: Login e Senha inválidos";
-            //}
+            
 
             Server._sProtocolResponse = RetVar;
 

@@ -30,54 +30,37 @@ namespace Data
                 //Verifica se já existe o username no BD
                 var query = (from u in contexto.Users
                              where (u.nome==userParam) && (u.senha == PwdParam)
-                             select u).SingleOrDefault();
-                
-
-                //if (queryUsername != null)
-                //{
-                //    var queryPassword = (from p in queryUsername.nome
-                //                         where (p.senha == PwdParam)
-                //                         select p).SingleOrDefault();
-                //}
-                               
+                             select u).SingleOrDefault();   
                
 
                 if (query != null)
                 {
                     if (query.senha != PwdParam)
                     {
-                        RetVar = "Login failed!";
+                        RetVar = "[Loginfail]"; //Login failed!
                     }
                     else
                     {
                         if (query.primeirologin == true)
                         {
-                            RetVar = "Login successful! Welcome to the Magic Land, I see it' s your first time here.";
+                            RetVar = "[Loginok1]"; //Login ok! Welcome to your first time here.
                             query.primeirologin = false;
                             contexto.SaveChanges();
                         }
                         else
                         {
-                            RetVar = "Login successful!";
+                            RetVar = "[Loginok]"; //Login ok!
                         }
                         
                     }
                 }
                 else
                 {
-                    RetVar = "Login not found!";
+                    RetVar = "[Loginfail]"; //Login failed!
                 }
 
             }
-            //if (userParam == "Ricardo" && PwdParam == "123456")
-            //{
-            //    RetVar = "O Cliente " + clientId + " enviou os dados: " + pBuilder.GetProtocol();
-            //}
-            //else
-            //{
-            //    RetVar = "O Cliente " + clientId + " digitou: Login e Senha inválidos";
-            //}
-
+            
             Server._sProtocolResponse = RetVar;
 
         }

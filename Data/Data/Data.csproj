@@ -59,8 +59,10 @@
     <Compile Include="Connection\Server.cs" />
     <Compile Include="Controllers\Action.cs" />
     <Compile Include="Controllers\ActionController.cs" />
+    <Compile Include="Controllers\CreateCharacterController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
+    <Compile Include="Controllers\RequestListOfPlayersController.cs" />
     <Compile Include="Controllers\UnknownTagController.cs" />
     <Compile Include="Database\BdTesteUnity.Context.cs">
       <AutoGen>True</AutoGen>

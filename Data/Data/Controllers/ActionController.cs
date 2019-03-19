@@ -124,6 +124,34 @@ namespace Data
 
             add("RegisterLogin", c);
 
+            Action d;
+
+            d = new Action();
+            d.Controller = "CreateCharacterController";
+            d.Method = "CreateCharacter";
+
+            d.ObjParam = pResolver.ObjectFields;
+
+            var objparamlistaCreateCharacterController = d.ObjParam.ToList();
+            objparamlistaCreateCharacterController.Add(this.clientId);
+            d.ObjParam = objparamlistaCreateCharacterController.ToArray();
+
+            add("CreateCharacter", d);
+
+            Action e;
+
+            e = new Action();
+            e.Controller = "RequestListOfPlayersController";
+            e.Method = "RequestListOfPlayers";
+
+            e.ObjParam = pResolver.ObjectFields;
+
+            var objparamlistaRequestListOfPlayersController = e.ObjParam.ToList();
+            objparamlistaRequestListOfPlayersController.Add(this.clientId);
+            e.ObjParam = objparamlistaRequestListOfPlayersController.ToArray();
+
+            add("RequestListOfPlayers", e);
+
         }
         
     }
