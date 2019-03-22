@@ -96,6 +96,7 @@ namespace Data
 
             add("loginMemb", a);
 
+
             Action b;
 
             b = new Action();
@@ -109,6 +110,7 @@ namespace Data
             b.ObjParam = objparamlistaUnknownTagController.ToArray();           
 
             add("UnknTag", b);
+
 
             Action c;
 
@@ -124,6 +126,7 @@ namespace Data
 
             add("RegisterLogin", c);
 
+
             Action d;
 
             d = new Action();
@@ -138,6 +141,7 @@ namespace Data
 
             add("CreateCharacter", d);
 
+
             Action e;
 
             e = new Action();
@@ -151,6 +155,36 @@ namespace Data
             e.ObjParam = objparamlistaRequestListOfPlayersController.ToArray();
 
             add("RequestListOfPlayers", e);
+
+
+
+            Action f;
+
+            f = new Action();
+            f.Controller = "RequestPlayerDetailsController";
+            f.Method = "RequestPlayerDetails";
+
+            f.ObjParam = pResolver.ObjectFields;
+
+            var objparamRequestPlayerDetailsController = f.ObjParam.ToList();
+            objparamRequestPlayerDetailsController.Add(this.clientId);
+            f.ObjParam = objparamRequestPlayerDetailsController.ToArray();
+
+            add("RequestPlayerDetails", f);
+
+            Action g;
+
+            g = new Action();
+            g.Controller = "SavePlayerPositionController";
+            g.Method = "SavePlayerPosition";
+
+            g.ObjParam = pResolver.ObjectFields;
+
+            var objparamSavePlayerPositionController = g.ObjParam.ToList();
+            objparamSavePlayerPositionController.Add(this.clientId);
+            g.ObjParam = objparamSavePlayerPositionController.ToArray();
+
+            add("SavePlayerPosition", g);
 
         }
         

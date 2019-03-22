@@ -63,6 +63,8 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\RequestListOfPlayersController.cs" />
+    <Compile Include="Controllers\RequestPlayerDetailsController.cs" />
+    <Compile Include="Controllers\SavePlayerPositionController.cs" />
     <Compile Include="Controllers\UnknownTagController.cs" />
     <Compile Include="Database\BdTesteUnity.Context.cs">
       <AutoGen>True</AutoGen>

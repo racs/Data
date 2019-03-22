@@ -17,7 +17,7 @@
           <Property Name="PosZ" Type="float" />
           <Property Name="Vida" Type="int" />
           <Property Name="Mana" Type="int" />
-          <Property Name="Sexo" Type="nchar" MaxLength="10" />
+          <Property Name="Sexo" Type="nvarchar(max)" />
           <Property Name="valorvermelhoblusamasc" Type="float" />
           <Property Name="valorverdeblusamasc" Type="float" />
           <Property Name="valorazulblusamasc" Type="float" />
@@ -90,7 +90,7 @@
           <Property Name="Mana" Type="Int32" />
           <Property Name="ID_USER_PLAYERS" Type="Int32" Nullable="false" />
           <NavigationProperty Name="User" Relationship="TesteunityModel.FK_User_Players" FromRole="Player" ToRole="User" />
-          <Property Name="Sexo" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Sexo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="valorvermelhoblusamasc" Type="Double" />
           <Property Name="valorverdeblusamasc" Type="Double" />
           <Property Name="valorazulblusamasc" Type="Double" />
