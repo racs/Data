@@ -72,8 +72,8 @@ namespace Data
                         player.Nome = namePlayer;
                         player.Sexo = genre;
                         player.Nivel = Convert.ToInt32(level);
-                        player.Vida = Convert.ToInt32(life);
-                        player.Mana = Convert.ToInt32(mana);
+                        player.Vida = Convert.ToDouble(life);
+                        player.Mana = Convert.ToDouble(mana);
                         player.PosX = Convert.ToDouble(posx);
                         player.PosY = Convert.ToDouble(posy);
                         player.PosZ = Convert.ToDouble(posz);

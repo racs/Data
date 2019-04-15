@@ -19,8 +19,8 @@ namespace Data.Database
         public Nullable<double> PosX { get; set; }
         public Nullable<double> PosY { get; set; }
         public Nullable<double> PosZ { get; set; }
-        public Nullable<int> Vida { get; set; }
-        public Nullable<int> Mana { get; set; }
+        public Nullable<double> Vida { get; set; }
+        public Nullable<double> Mana { get; set; }
         public int ID_USER_PLAYERS { get; set; }
         public string Sexo { get; set; }
         public Nullable<double> valorvermelhoblusamasc { get; set; }
